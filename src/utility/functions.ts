@@ -1,14 +1,5 @@
 import { FlightTicket } from "../types/allTypes";
 
-/**
- * This function can be used anywhere in the app to greet the user
- * @param userName The user's first name
- * @returns A kind greeting message
- */
-export const sayHello = (userName: string): string => {
-  return "Welcome " + userName + "!";
-};
-
 export const allSeatsBusy = (ticket: FlightTicket) => {
   return ticket.seats.every((seat) => seat.available === false);
 };
@@ -32,7 +23,7 @@ export const sortTicketsByPrice = (
 };
 
 export const sortBy = (
-  event: React.ChangeEvent<HTMLSelectElement>,
+  event: any,
   setSelectedOption: React.Dispatch<
     React.SetStateAction<"" | "from min" | "from max">
   >

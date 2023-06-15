@@ -2,6 +2,8 @@ import React from "react";
 import "./SearchBar.scss";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../resources/routes-constants";
+import Button from "@mui/material/Button";
+import { TextField } from "@mui/material";
 
 export const SearchBars: React.FC<{
   setCityFrom: React.Dispatch<React.SetStateAction<string>>;
@@ -9,20 +11,25 @@ export const SearchBars: React.FC<{
 }> = ({ setCityFrom, setCityTo }) => {
   return (
     <div>
-      From
-      <input
+      <TextField
+        id="outlined-basic"
+        label="From"
+        variant="outlined"
         onChange={(e) => {
           e.preventDefault();
           setCityFrom(e.target.value);
         }}
-      ></input>
-      To
-      <input
+      />
+
+      <TextField
+        id="outlined-basic"
+        label="To"
+        variant="outlined"
         onChange={(e) => {
           e.preventDefault();
           setCityTo(e.target.value);
         }}
-      ></input>
+      />
     </div>
   );
 };
@@ -32,8 +39,8 @@ export const SearchButtons: React.FC<{
   showFilters: boolean;
   cityFrom: string;
   cityTo: string;
-  filteredPrice: number;
-  filteredDuration: number;
+  filteredPrice: number | number[];
+  filteredDuration: number | number[];
   departureDate: string;
 }> = ({
   setShowFilters,
@@ -47,15 +54,17 @@ export const SearchButtons: React.FC<{
   const navigate = useNavigate();
   return (
     <>
-      <button
+      <Button
+        variant="contained"
         className="searchbar-btn"
         onClick={() => {
           setShowFilters(!showFilters);
         }}
       >
         Advanced search
-      </button>
-      <button
+      </Button>
+      <Button
+        variant="contained"
         className="searchbar-btn"
         onClick={() => {
           navigate(ROUTES.SEARCH_RESULTS, {
@@ -70,7 +79,7 @@ export const SearchButtons: React.FC<{
         }}
       >
         Search
-      </button>
+      </Button>
     </>
   );
 };

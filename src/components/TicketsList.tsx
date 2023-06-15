@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FlightTicket } from "../types/allTypes";
 import { Tickets } from "./Tickets";
 import { sortBy, sortTicketsByPrice } from "../utility/functions";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 export const TicketsList: React.FC<{
   filteredTickets: FlightTicket[];
@@ -20,14 +21,18 @@ export const TicketsList: React.FC<{
       {sortedTickets.length ? (
         <>
           <h2>Please choose the available flight</h2>
-          <select
-            value={selectedOption}
-            onChange={(e) => sortBy(e, setSelectedOption)}
-          >
-            <option value="">Sort by</option>
-            <option value="from min">From cheapest</option>
-            <option value="from max">From most expensive</option>
-          </select>
+          <FormControl sx={{ m: 1, minWidth: 80 }}>
+            <InputLabel id="sort-select-label">Sort</InputLabel>
+            <Select
+              value={selectedOption}
+              labelId="sort-select-label"
+              label="Sort"
+              onChange={(e) => sortBy(e, setSelectedOption)}
+            >
+              <MenuItem value="from min">From cheapest</MenuItem>
+              <MenuItem value="from max">From most expensive</MenuItem>
+            </Select>
+          </FormControl>
           {sortedTickets.map((ticket) => (
             <div key={ticket.id}>
               <Tickets ticket={ticket} />

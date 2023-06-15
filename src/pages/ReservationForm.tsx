@@ -11,6 +11,16 @@ import { HeaderNav } from "../components/HeaderNav";
 import { updateAvailability } from "../store/actions/actions";
 import { useAppDispatch } from "../store/store";
 import { ROUTES } from "../resources/routes-constants";
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
+
 const ReservationForm: React.FC = () => {
   const [chosenTicket, setChosenTicket] = useState<FlightTicket>();
   const [chosenSeat, setChosenSeat] = useState<string>("");
@@ -73,6 +83,7 @@ const ReservationForm: React.FC = () => {
         <Formik
           initialValues={initialValues}
           onSubmit={(values) => {
+            console.log(values);
             dispatch(updateAvailability(chosenTicket.id, chosenSeat));
             navigate(ROUTES.CONFIRMATION_PAGE, { state: values });
           }}
@@ -83,44 +94,52 @@ const ReservationForm: React.FC = () => {
               <div className="reservation-form-fields-box">
                 <div className="reservation-form-fields">
                   <h5>Passenger information</h5>
-                  <div>Title</div>
-                  <select
-                    value={values.title}
-                    onChange={(e: any) => {
-                      e.preventDefault();
-                      setFieldValue("title", e.target.value);
-                    }}
-                  >
-                    <option value=""></option>
-                    <option value="mr">Mr</option>
-                    <option value="ms">Ms</option>
-                  </select>
-                  <div>First name</div>
-                  <Field
+                  <FormControl sx={{ m: 1 }}>
+                    <InputLabel id="title-select-label">Title</InputLabel>
+                    <Select
+                      size="small"
+                      value={values.title}
+                      labelId="title-select-label"
+                      label="Title"
+                      onChange={(e: any) => {
+                        e.preventDefault();
+                        setFieldValue("title", e.target.value);
+                      }}
+                    >
+                      <MenuItem value="Mr">Mr</MenuItem>
+                      <MenuItem value="Ms">Ms</MenuItem>
+                    </Select>
+                  </FormControl>
+                  <TextField
+                    sx={{ margin: "10px" }}
+                    size="small"
                     name="name"
-                    type="text"
+                    id="outlined-basic"
+                    label="First name"
+                    variant="outlined"
                     value={values.name}
                     onChange={(e: any) => {
                       e.preventDefault();
                       setFieldValue("name", e.target.value);
                     }}
+                    error={touched.name}
+                    helperText={errors.name}
                   />
-                  {errors.name && touched.name && (
-                    <div className="error-message">{errors.name}</div>
-                  )}
-                  <div>Last name</div>
-                  <Field
+                  <TextField
+                    sx={{ margin: "10px" }}
+                    size="small"
                     name="surname"
-                    type="text"
+                    id="outlined-basic"
+                    label="Last name"
+                    variant="outlined"
                     value={values.surname}
                     onChange={(e: any) => {
                       e.preventDefault();
                       setFieldValue("surname", e.target.value);
                     }}
-                  />{" "}
-                  {errors.surname && touched.surname && (
-                    <div className="error-message">{errors.surname}</div>
-                  )}
+                    error={touched.surname}
+                    helperText={errors.surname}
+                  />
                 </div>
                 <div className="reservation-form-fields">
                   <h5>Date of birth</h5>
@@ -136,54 +155,158 @@ const ReservationForm: React.FC = () => {
                     <div className="error-message">{errors.bday}</div>
                   )}
                 </div>
-                <div className="reservation-form-fields">
+                <Box className="reservation-form-fields">
                   <h5>Contact information</h5>
-                  <div>Email</div>
-                  <Field name="email" type="email" />
-                  {errors.email && touched.email && (
-                    <div className="error-message">{errors.email}</div>
-                  )}
-                  <div>Phone number</div>
-                  <Field name="phone" type="phone" />
+                  <TextField
+                    sx={{ margin: "10px" }}
+                    type="email"
+                    size="small"
+                    name="email"
+                    id="outlined-basic"
+                    label="Email"
+                    variant="outlined"
+                    error={touched.email}
+                    helperText={errors.email}
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setFieldValue("email", e.target.value);
+                    }}
+                  />
+                  <TextField
+                    sx={{ margin: "10px" }}
+                    type="phone"
+                    size="small"
+                    name="phone"
+                    id="outlined-basic"
+                    label="Phone"
+                    variant="outlined"
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setFieldValue("phone", e.target.value);
+                    }}
+                  />
 
-                  <div>Address</div>
-                  <Field name="address" type="address" />
-                  {errors.address && touched.address && (
-                    <div className="error-message">{errors.address}</div>
-                  )}
-                  <div>City</div>
-                  <Field name="city" type="text" />
-                  {errors.city && touched.city && (
-                    <div className="error-message">{errors.city}</div>
-                  )}
-                  <div>State</div>
-                  <Field name="state" type="text" />
-                  <div>Postal code</div>
-                  <Field name="postal" type="text" />
-                  <div>Country</div>
-                  <Field name="country" type="text" />
-                  {errors.country && touched.country && (
-                    <div className="error-message">{errors.country}</div>
-                  )}
-                </div>
-                <div className="reservation-form-fields">
+                  <TextField
+                    sx={{ margin: "10px" }}
+                    type="address"
+                    size="small"
+                    name="address"
+                    id="outlined-basic"
+                    label="Address"
+                    variant="outlined"
+                    error={touched.address}
+                    helperText={errors.address}
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setFieldValue("address", e.target.value);
+                    }}
+                  />
+                  <TextField
+                    sx={{ margin: "10px" }}
+                    type="city"
+                    size="small"
+                    name="city"
+                    id="outlined-basic"
+                    label="City"
+                    variant="outlined"
+                    error={touched.city}
+                    helperText={errors.city}
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setFieldValue("city", e.target.value);
+                    }}
+                  />
+                  <TextField
+                    sx={{ margin: "10px" }}
+                    type="state"
+                    size="small"
+                    name="state"
+                    id="outlined-basic"
+                    label="State"
+                    variant="outlined"
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setFieldValue("state", e.target.value);
+                    }}
+                  />
+                  <TextField
+                    sx={{ margin: "10px" }}
+                    type="postal"
+                    size="small"
+                    name="postal"
+                    id="outlined-basic"
+                    label="Postal code"
+                    variant="outlined"
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setFieldValue("postal", e.target.value);
+                    }}
+                  />
+                  <TextField
+                    sx={{ margin: "10px" }}
+                    type="country"
+                    size="small"
+                    name="country"
+                    id="outlined-basic"
+                    label="Country"
+                    variant="outlined"
+                    error={touched.country}
+                    helperText={errors.country}
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setFieldValue("country", e.target.value);
+                    }}
+                  />
+                </Box>
+                <Box className="reservation-form-fields">
                   <h5>Flight information</h5>
-                  <div>Flight day</div>
-                  <Field
+
+                  <TextField
+                    aria-readonly
+                    sx={{ margin: "10px" }}
+                    size="small"
                     name="departure"
-                    readOnly
+                    id="outlined-basic"
+                    label="Flight day"
+                    variant="outlined"
                     value={moment(values.departure).format("DD MMM YYYY hh:mm")}
                   />
-                  <div>Seat</div>
-                  <Field name="seat" readOnly value={values.seat} />
-                  <div>Departure city</div>
-                  <Field name="cityFrom" readOnly value={values.cityFrom} />
-                  <div>Arrival city</div>
-                  <Field name="cityTo" readOnly value={values.cityTo} />
-                </div>
+                  <TextField
+                    aria-readonly
+                    sx={{ margin: "10px" }}
+                    size="small"
+                    name="seat"
+                    id="outlined-basic"
+                    label="Seat"
+                    variant="outlined"
+                    value={values.seat}
+                  />
+                  <TextField
+                    aria-readonly
+                    sx={{ margin: "10px" }}
+                    size="small"
+                    id="outlined-basic"
+                    label="Departure city"
+                    variant="outlined"
+                    name="cityFrom"
+                    value={values.cityFrom}
+                  />
+                  <TextField
+                    aria-readonly
+                    sx={{ margin: "5px" }}
+                    size="small"
+                    id="outlined-basic"
+                    label="Arrival city"
+                    variant="outlined"
+                    name="cityTo"
+                    value={values.cityTo}
+                  />
+                </Box>
               </div>
 
-              <button type="submit">Submit</button>
+              <Button type="submit" variant="contained">
+                Submit
+              </Button>
             </Form>
           )}
         </Formik>

@@ -2,20 +2,21 @@ import React, { useEffect, useState } from "react";
 import { FlightTicket } from "../types/allTypes";
 import { RootState, useAppSelector } from "../store/store";
 import moment from "moment";
+import { Slider } from "@mui/material";
 
 export const Filters: React.FC<{
   highestPrice: number;
   setHighestPrice: React.Dispatch<React.SetStateAction<number>>;
   lowestPrice: number;
   setLowestPrice: React.Dispatch<React.SetStateAction<number>>;
-  filteredPrice: number;
-  setFilteredPrice: React.Dispatch<React.SetStateAction<number>>;
+  filteredPrice: number | number[];
+  setFilteredPrice: React.Dispatch<React.SetStateAction<number | number[]>>;
   shortestFlight: number;
   setShortestFlight: React.Dispatch<React.SetStateAction<number>>;
   longestFlight: number;
   setLongestFlight: React.Dispatch<React.SetStateAction<number>>;
-  filteredDuration: number;
-  setFilteredDuration: React.Dispatch<React.SetStateAction<number>>;
+  filteredDuration: number | number[];
+  setFilteredDuration: React.Dispatch<React.SetStateAction<number | number[]>>;
   departureDate: string;
   setDepartureDate: React.Dispatch<React.SetStateAction<string>>;
 }> = ({
@@ -67,43 +68,42 @@ export const Filters: React.FC<{
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-  const handleDurationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newDuration = parseInt(event.target.value, 10);
-    setFilteredDuration(newDuration);
+  const handleDurationChange = (event: Event, newValue: number | number[]) => {
+    setFilteredDuration(newValue);
   };
 
-  const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newPrice = parseInt(event.target.value, 10);
-    setFilteredPrice(newPrice);
+  const handlePriceChange = (event: Event, newValue: number | number[]) => {
+    setFilteredPrice(newValue);
   };
-
   return (
     <div>
       <ul>
         <li>
           {`${filteredPrice} €`}
-          <input
-            type="range"
+          <Slider
+            value={typeof filteredPrice === "number" ? filteredPrice : 0}
+            onChange={handlePriceChange}
+            aria-labelledby="input-slider"
             min={lowestPrice}
             max={highestPrice}
-            name="Price"
-            value={filteredPrice}
-            onChange={handlePriceChange}
           />
         </li>
         <li>
           {`${filteredDuration} hours`}
-          <input
-            type="range"
+          <Slider
+            value={typeof filteredDuration === "number" ? filteredDuration : 0}
+            onChange={handleDurationChange}
+            aria-labelledby="input-slider"
             min={shortestFlight}
             max={longestFlight}
-            name="Duration"
-            value={filteredDuration}
-            onChange={handleDurationChange}
           />
         </li>
         <li>
-          {`Departure on ${moment(departureDate).format("DD MMM YYYY")}`}
+          {`Departure on ${
+            departureDate.length
+              ? moment(departureDate).format("DD MMM YYYY")
+              : ""
+          }`}
           <input
             type="date"
             name="Duration"

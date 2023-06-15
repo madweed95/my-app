@@ -9,10 +9,12 @@ const HomePage: React.FC = () => {
   const [cityTo, setCityTo] = useState<string>("");
   const [highestPrice, setHighestPrice] = useState<number>(0);
   const [lowestPrice, setLowestPrice] = useState<number>(0);
-  const [filteredPrice, setFilteredPrice] = useState<number>(0);
+  const [filteredPrice, setFilteredPrice] = useState<number | number[]>(0);
   const [shortestFlight, setShortestFlight] = useState<number>(0);
   const [longestFlight, setLongestFlight] = useState<number>(0);
-  const [filteredDuration, setFilteredDuration] = useState<number>(0);
+  const [filteredDuration, setFilteredDuration] = useState<number | number[]>(
+    0
+  );
   const [departureDate, setDepartureDate] = useState<string>("");
 
   return (

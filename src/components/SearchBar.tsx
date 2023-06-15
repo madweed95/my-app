@@ -1,9 +1,7 @@
 import React from "react";
 import "./SearchBar.scss";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../resources/routes-constants";
-import { searchFlight } from "../store/actions/actions";
 
 export const SearchBars: React.FC<{
   setCityFrom: React.Dispatch<React.SetStateAction<string>>;
@@ -36,6 +34,7 @@ export const SearchButtons: React.FC<{
   cityTo: string;
   filteredPrice: number;
   filteredDuration: number;
+  departureDate: string;
 }> = ({
   setShowFilters,
   showFilters,
@@ -43,8 +42,8 @@ export const SearchButtons: React.FC<{
   cityTo,
   filteredPrice,
   filteredDuration,
+  departureDate,
 }) => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   return (
     <>
@@ -59,15 +58,15 @@ export const SearchButtons: React.FC<{
       <button
         className="searchbar-btn"
         onClick={() => {
-          dispatch(
-            searchFlight(
+          navigate(ROUTES.SEARCH_RESULTS, {
+            state: {
               cityFrom,
               cityTo,
-              filteredPrice > 0 ? filteredPrice : undefined,
-              filteredDuration > 0 ? filteredDuration : undefined
-            )
-          );
-          navigate(ROUTES.TICKETS_AVAILABLE);
+              filteredPrice,
+              filteredDuration,
+              departureDate,
+            },
+          });
         }}
       >
         Search

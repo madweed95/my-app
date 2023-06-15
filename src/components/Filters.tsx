@@ -1,5 +1,7 @@
-import React, { useEffect } from "react";
-import { initialState } from "../store/initialState";
+import React, { useEffect, useState } from "react";
+import { FlightTicket } from "../types/allTypes";
+import { RootState, useAppSelector } from "../store/store";
+import moment from "moment";
 
 export const Filters: React.FC<{
   highestPrice: number;
@@ -14,6 +16,8 @@ export const Filters: React.FC<{
   setLongestFlight: React.Dispatch<React.SetStateAction<number>>;
   filteredDuration: number;
   setFilteredDuration: React.Dispatch<React.SetStateAction<number>>;
+  departureDate: string;
+  setDepartureDate: React.Dispatch<React.SetStateAction<string>>;
 }> = ({
   highestPrice,
   setHighestPrice,
@@ -27,36 +31,41 @@ export const Filters: React.FC<{
   setLongestFlight,
   filteredDuration,
   setFilteredDuration,
+  departureDate,
+  setDepartureDate,
 }) => {
+  const [data, setData] = useState<FlightTicket[]>([]);
+  const searchResults = useAppSelector((state: RootState) => state.dataFlights);
+
   useEffect(() => {
-    const maxPrice = initialState.reduce((max, obj) => {
+    setData(searchResults);
+  }, [searchResults]);
+
+  useEffect(() => {
+    const maxPrice = data.reduce((max, obj) => {
       return obj.price > max ? obj.price : max;
     }, -Infinity);
     setHighestPrice(maxPrice);
 
-    const minPrice = initialState.reduce((min, obj) => {
+    const minPrice = data.reduce((min, obj) => {
       return obj.price < min ? obj.price : min;
     }, Infinity);
     setLowestPrice(minPrice);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    const maxDuration = initialState.reduce((max, obj) => {
+    const maxDuration = data.reduce((max, obj) => {
       const durationValue = parseInt(obj.duration, 10);
       return durationValue > max ? durationValue : max;
     }, -Infinity);
     setLongestFlight(maxDuration);
 
-    const minDuration = initialState.reduce((min, obj) => {
+    const minDuration = data.reduce((min, obj) => {
       const durationValue = parseInt(obj.duration, 10);
       return durationValue < min ? durationValue : min;
     }, Infinity);
     setShortestFlight(minDuration);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [data]);
 
   const handleDurationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newDuration = parseInt(event.target.value, 10);
@@ -91,6 +100,16 @@ export const Filters: React.FC<{
             name="Duration"
             value={filteredDuration}
             onChange={handleDurationChange}
+          />
+        </li>
+        <li>
+          {`Departure on ${moment(departureDate).format("DD MMM YYYY")}`}
+          <input
+            type="date"
+            name="Duration"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setDepartureDate(moment(e.target.value).toISOString())
+            }
           />
         </li>
       </ul>

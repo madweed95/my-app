@@ -1,7 +1,15 @@
 :root {
-  // --font-size: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 html {
   font-size: var(--font-size);
+}
+
+.error-message {
+  color: red;
+  font-size: small;
 }

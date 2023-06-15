@@ -1,10 +1,9 @@
-export interface ReducerData {
-  contents: string[];
+import { UPDATE_AVAILABILITY } from "../resources/constants";
+
+export interface UpdateAvailabilityAction {
+  type: typeof UPDATE_AVAILABILITY;
+  payload: {
+    flightId: number;
+    seatNumber: string;
+  };
 }
-
-export type ReduxActionData<T> = {
-  type: any;
-  payload?: T;
-};
-
-export type ReduxAction<T> = (data: T) => ReduxActionData<T>;

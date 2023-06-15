@@ -1,5 +1,3 @@
-import { SEARCH_FLIGHT, UPDATE_AVAILABILITY } from "../constants/constants";
-
 interface Seat {
   id: number;
   number: string;
@@ -17,21 +15,10 @@ export interface FlightTicket {
   seats: Seat[];
 }
 
-export interface UpdateAvailabilityAction {
-  type: typeof UPDATE_AVAILABILITY;
-  payload: {
-    flightId: number;
-    seatId: number;
-    available: boolean;
-  };
-}
-export interface SearchFlight {
-  type: typeof SEARCH_FLIGHT;
-  payload: {
-    from?: string;
-    to?: string;
-    price?: number;
-    duration?: number;
-    departureDate?: string;
-  };
+export interface Filters {
+  cityFrom: string;
+  cityTo: string;
+  filteredPrice: number;
+  filteredDuration: number;
+  departureDate: string;
 }

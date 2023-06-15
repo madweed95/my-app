@@ -1,0 +1,12 @@
+.reservation-form-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .reservation-form-fields-box {
+    display: flex;
+    .reservation-form-fields {
+      margin-left: 15px;
+      margin-right: 15px;
+    }
+  }
+}

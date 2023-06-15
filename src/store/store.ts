@@ -10,21 +10,19 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage
-import dataFlights from "./reducers/flightReducer";
-import dataSearch from "./reducers/searchReducer";
+import flightReducer from "./reducers/flightReducer";
 
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 const rootReducer = combineReducers({
-  dataFlights,
-  dataSearch,
+  dataFlights: flightReducer,
 });
 
 const persistedReducer = persistReducer(
   {
     key: "root",
     storage,
-    whitelist: ["data"],
+    whitelist: ["dataFlights"],
   },
   rootReducer
 );

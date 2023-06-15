@@ -1,30 +1,6 @@
-import { SEARCH_FLIGHT, UPDATE_AVAILABILITY } from "../../constants/constants";
-import { UpdateAvailabilityAction } from "../../types/allTypes";
+import { UPDATE_AVAILABILITY } from "../../resources/constants";
 
-export const updateAvailability = (
-  flightId: number,
-  seatId: number,
-  available: boolean
-): UpdateAvailabilityAction => ({
+export const updateAvailability = (flightId: number, seatNumber: string) => ({
   type: UPDATE_AVAILABILITY,
-  payload: { flightId, seatId, available },
+  payload: { flightId, seatNumber },
 });
-
-export const searchFlight = (
-  from?: string,
-  to?: string,
-  price?: number,
-  duration?: number,
-  departureDate?: string
-) => {
-  return {
-    type: SEARCH_FLIGHT,
-    payload: {
-      from,
-      to,
-      price,
-      duration,
-      departureDate,
-    },
-  };
-};

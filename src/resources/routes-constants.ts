@@ -1,4 +1,6 @@
 export const ROUTES = {
   HOMEPAGE_ROUTE: "/",
-  TICKETS_AVAILABLE: "/tickets",
+  SEARCH_RESULTS: "/tickets",
+  RESERVATION_FORM: "/tickets/:id",
+  CONFIRMATION_PAGE: "/confirmation",
 };

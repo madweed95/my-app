@@ -13,12 +13,14 @@ const HomePage: React.FC = () => {
   const [shortestFlight, setShortestFlight] = useState<number>(0);
   const [longestFlight, setLongestFlight] = useState<number>(0);
   const [filteredDuration, setFilteredDuration] = useState<number>(0);
+  const [departureDate, setDepartureDate] = useState<string>("");
 
   return (
     <div className="homepage-body">
       <h1>Find your flight now!</h1>
       <div className="homepage-box-search">
         <SearchBars setCityFrom={setCityFrom} setCityTo={setCityTo} />
+
         <SearchButtons
           setShowFilters={setShowFilters}
           showFilters={showFilters}
@@ -26,6 +28,7 @@ const HomePage: React.FC = () => {
           cityTo={cityTo}
           filteredPrice={filteredPrice}
           filteredDuration={filteredDuration}
+          departureDate={departureDate}
         />
       </div>
       {showFilters && (
@@ -42,6 +45,8 @@ const HomePage: React.FC = () => {
           setLongestFlight={setLongestFlight}
           filteredDuration={filteredDuration}
           setFilteredDuration={setFilteredDuration}
+          departureDate={departureDate}
+          setDepartureDate={setDepartureDate}
         />
       )}
     </div>

@@ -1,7 +1,6 @@
-import { combineReducers } from "@reduxjs/toolkit";
-import { UpdateAvailabilityAction } from "../../types/allTypes";
-import { UPDATE_AVAILABILITY } from "../../constants/constants";
+import { UPDATE_AVAILABILITY } from "../../resources/constants";
 import { initialState as initVal } from "../initialState";
+import { UpdateAvailabilityAction } from "../../types/reducers";
 
 const initialState = initVal;
 
@@ -12,29 +11,23 @@ const flightReducer = (
   switch (action.type) {
     case UPDATE_AVAILABILITY: {
       const payload = action.payload;
-      const { flightId, seatId, available } = payload;
-      return {
-        flights: state.map((flight) => {
-          if (flight.id === flightId) {
-            return {
-              ...flight,
-              seats: flight.seats.map((seat) =>
-                seat.id === seatId ? { ...seat, available } : seat
-              ),
-            };
-          }
-          return flight;
-        }),
-      };
+      const { flightId, seatNumber } = payload;
+      return state.map((flight) => {
+        if (flight.id === flightId) {
+          console.log(flight.id === flightId);
+          return {
+            ...flight,
+            seats: flight.seats.map((seat) =>
+              seat.number === seatNumber ? { ...seat, available: false } : seat
+            ),
+          };
+        }
+        return flight;
+      });
     }
-
     default:
       return state;
   }
 };
 
-const rootReducer = combineReducers({
-  flightReducer,
-});
-
-export default rootReducer;
+export default flightReducer;

@@ -1,15 +1,8 @@
 <h1 align="center">New React App</h1>
 
-<br />
-
-This is a blank README file that you can customize at your needs.\
-Describe your project, how it works and how to contribute to it.
-
-<br />
-
 # 🚀 Available Scripts
 
-In the project directory, you can run:
+classic npm i
 
 <br />
 
@@ -27,22 +20,6 @@ yarn start
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-<br />
-
-## 🧪 test
-
-```
-npm test
-```
-
-or
-
-```
-yarn test
-```
-
-Launches the test runner in the interactive watch mode.
 
 <br />
 
@@ -112,7 +89,6 @@ This is the structure of the files in the project:
     │   │   ├── actions         # store's actions
     │   │   └── reducers        # store's reducers
     │   ├── styles
-    │   ├── tests               # all test files
     │   ├── types               # data interfaces
     │   ├── utility             # utilities functions and custom components
     │   ├── App.tsx

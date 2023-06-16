@@ -8,13 +8,16 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+import { Container } from "@mui/material";
 
 const App: React.FC = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <CssBaseline />
-        <RootComponent />
+        <Container>
+          <RootComponent />
+        </Container>
       </PersistGate>
     </Provider>
   );

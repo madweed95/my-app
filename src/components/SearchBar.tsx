@@ -3,7 +3,7 @@ import "./SearchBar.scss";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../resources/routes-constants";
 import Button from "@mui/material/Button";
-import { TextField } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 
 export const SearchBars: React.FC<{
   setCityFrom: React.Dispatch<React.SetStateAction<string>>;
@@ -53,7 +53,7 @@ export const SearchButtons: React.FC<{
 }) => {
   const navigate = useNavigate();
   return (
-    <>
+    <Box>
       <Button
         variant="contained"
         className="searchbar-btn"
@@ -80,6 +80,6 @@ export const SearchButtons: React.FC<{
       >
         Search
       </Button>
-    </>
+    </Box>
   );
 };
